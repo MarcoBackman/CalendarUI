@@ -1,23 +1,32 @@
 package classfile.ui;
 
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.event.MenuKeyEvent;
 import javax.swing.event.MenuKeyListener;
 
-private class MenuBar extends JMenuBar {
+class MenuBar extends JMenuBar implements ActionListener,
+                                          MenuKeyListener {
 
+    private JFrame mainFrame;
     public static JMenu fileTab, editTab, searchTab, helpTab;
     public static JMenuItem open, exit,       //File tab components
                             addStander,       //Edit tab components
                             help, version;    //Help tab components
     private Insets insets = new Insets(10, 5, 10, 5);
 
-    public MenuBar() {
+    public MenuBar(JFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setupMenuBar();
+        activateMenuListener();
     }
 
     private void setupMenuBar() {
@@ -25,6 +34,11 @@ private class MenuBar extends JMenuBar {
         this.setBackground(ColorCode.FILE_TAB_BACKGROUND);
         this.setOpaque(true);
         this.setMargin(insets);
+
+        addFileTab();
+        addEditTab();
+        addSearchTab();
+        addHelpTab();
     }
 
     private void addFileTab() {
@@ -83,5 +97,30 @@ private class MenuBar extends JMenuBar {
 
         version = new JMenuItem("Program Version");
         helpTab.add(version);
+    }
+
+    public void activateMenuListener() {
+        open.addActionListener(mainFrame);
+        exit.addActionListener(mainFrame);
+        addStander.addActionListener(mainFrame);
+        help.addActionListener(mainFrame);
+        version.addActionListener(mainFrame);
+
+        open.addMenuKeyListener(mainFrame);
+        exit.addMenuKeyListener(mainFrame);
+        addStander.addMenuKeyListener(mainFrame);
+        help.addMenuKeyListener(mainFrame);
+        version.addMenuKeyListener(mainFrame);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object object = e.getSource();
+        //menu bar
+        if (object.equals(firstMenu.getItem(0))) { //open
+
+        } else if (object.equals(firstMenu.getItem(1))) { //exit
+            System.exit(0);
+        }
     }
 }
