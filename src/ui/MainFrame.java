@@ -19,9 +19,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.event.MenuKeyEvent;
-import javax.swing.event.MenuKeyListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,10 +27,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuKeyListener;
 
-public class MainFrame extends JFrame implements ActionListener,
-                                                 MenuKeyListener,
-                                                 MouseListener {
+public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 0L;
 
@@ -41,12 +38,8 @@ public class MainFrame extends JFrame implements ActionListener,
 	final int FRAME_WIDTH = 900, FRAME_HEIGHT = 700;
 
     //global variable
-    MenuBar menuBar;
-
-    //Panels - TODO refactor these
-    JPanel mainPanel, calendarPanel, rightPanel, lowerPanel;
-    JPanel upperMargin, lowerMargin, leftMargin, rightMargin;
-
+    MenuBar menuBar; //This is discrete from java.awt.MenuBar;
+    MainPanel mainPanel;
 
     public MainFrame () {
         //Name of the frame
@@ -55,9 +48,7 @@ public class MainFrame extends JFrame implements ActionListener,
         //Components initialization
     	setupFrame();
         addMenuBar();
-        setCalendarComponent();
-        addPanels();
-        activateListener();
+        addMainPanel();
     }
 
 	private void setupFrame() {
@@ -78,130 +69,7 @@ public class MainFrame extends JFrame implements ActionListener,
         setJMenuBar(menuBar);
     }
 
-    private void setCalendarComponent() {
-        calendarPanel = new JPanel(); //put Calendar panel to here
-        //calendarPanel.setIcon(FRAME_IMAGE); //panel does not support setIcon()
-        calendarPanel.setLayout(new GridLayout(7, 6, 15, 15));
-        calendarPanel.setBackground(IconSets.WHITE_BACKGROUND);
-        calendarPanel.setOpaque(true);
+    public vodi addMainPanel() {
+         mainPanel = new MainPanel();
     }
-
-    // TODO: refactor these
-    private void addPanels () {
-        mainPanel = new JPanel();
-
-        mainPanel.setLayout(new GridLayout(1, 1, 10, 10));
-
-        mainPanel.add(calendarPanel, BorderLayout.WEST);
-        mainPanel.addMouseListener(this);
-        mainPanel.setFocusable(true);
-
-        upperMargin = new JPanel();
-        lowerMargin = new JPanel();
-        leftMargin = new JPanel();
-        rightMargin = new JPanel();
-
-		//top margin labels: calendar
-
-		//lower margin buttons
-		setButtons();
-
-
-        //------lower panel setup - buttons for additional features----//
-        lowerPanel = new JPanel();                                     //
-        lowerPanel.setLayout(new GridLayout(2, 0));                    //
-                                                                       //
-		//margin add at the bottom-left                                //
-        lowerPanel.add(lowerMargin);                                   //
-		                                                               //
-		//process panel located at the bottom-right tab                //
-        JPanel processPanel = new ProcessPanel();                      //
-        lowerPanel.add(processPanel);                                  //
-		//------------------ end of lower panel setup -----------------//
-
-
-        this.add(upperMargin, BorderLayout.NORTH);
-        this.add(leftMargin, BorderLayout.WEST);
-        this.add(rightMargin, BorderLayout.EAST);
-        this.add(lowerPanel, BorderLayout.SOUTH);
-        this.add(mainPanel, BorderLayout.CENTER);
-
-        validate();
-    }
-
-    // TODO: refactor these
-    public void activateListener() {
-		standerButton.addActionListener(this);
-        tableButton.addActionListener(this);
-        dateSelectButton.addActionListener(this);
-    	genButton.addActionListener(this);
-    }
-
-    public void activateMenuListener() {
-        open.addActionListener(this);
-        exit.addActionListener(this);
-        addStander.addActionListener(this);
-        help.addActionListener(this);
-        version.addActionListener(this);
-
-        open.addMenuKeyListener(this);
-        exit.addMenuKeyListener(this);
-        addStander.addMenuKeyListener(this);
-        help.addMenuKeyListener(this);
-        version.addMenuKeyListener(this);
-    }
-
-    @Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void menuKeyTyped(MenuKeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void menuKeyPressed(MenuKeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void menuKeyReleased(MenuKeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 }
