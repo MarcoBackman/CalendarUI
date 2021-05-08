@@ -49,6 +49,7 @@ public class MainFrame extends JFrame {
     	setupFrame();
         addMenuBar();
         addMainPanel();
+        validate();
     }
 
 	private void setupFrame() {
@@ -66,10 +67,11 @@ public class MainFrame extends JFrame {
 
     private void addMenuBar() {
         menuBar = new MenuBar();
-        setJMenuBar(menuBar);
+        this.setJMenuBar(menuBar);
     }
 
-    public vodi addMainPanel() {
-         mainPanel = new MainPanel();
+    public void addMainPanel() {
+        mainPanel = new MainPanel();
+        this.add(mainPanel);
     }
 }

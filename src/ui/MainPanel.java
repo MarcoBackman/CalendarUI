@@ -46,6 +46,7 @@ class MainPanel extends JPanel implements ActionListener,
     MainPanel() {
         setCalendarPanel();
         setPanels();
+        setButtons();
         activateListener();
         validate();
     }
@@ -76,10 +77,10 @@ class MainPanel extends JPanel implements ActionListener,
         this.add(eastMargin, BorderLayout.EAST);
         this.add(southMargin, BorderLayout.SOUTH);
         this.add(westMargin, BorderLayout.WEST);
-        this.add(celendarPanel, BorderLayout.CENTER);
+        this.add(calendarPanel, BorderLayout.CENTER);
     }
 
-    private void setButtons () {
+    private void setButtons() {
         addStanderButton = new JButton("Add stander");
         addStanderButton.setFocusable(false);
 

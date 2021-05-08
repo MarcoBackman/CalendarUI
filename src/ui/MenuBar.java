@@ -16,15 +16,13 @@ import javax.swing.event.MenuKeyListener;
 class MenuBar extends JMenuBar implements ActionListener,
                                           MenuKeyListener {
 
-    private JFrame mainFrame;
     public static JMenu fileTab, editTab, searchTab, helpTab;
     public static JMenuItem open, exit,       //File tab components
                             addStander,       //Edit tab components
                             help, version;    //Help tab components
     private Insets insets = new Insets(10, 5, 10, 5);
 
-    public MenuBar(JFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public MenuBar() {
         setupMenuBar();
         activateMenuListener();
     }
@@ -51,10 +49,10 @@ class MenuBar extends JMenuBar implements ActionListener,
 
     private void addFileMenuItems() {
         open = new JMenuItem("Open");
-        firstMenu.add(open);
+        fileTab.add(open);
 
         exit = new JMenuItem("Exit");
-        firstMenu.add(exit);
+        fileTab.add(exit);
     }
 
     private void addEditTab() {
@@ -67,7 +65,7 @@ class MenuBar extends JMenuBar implements ActionListener,
 
     private void addEditMenuItems() {
         addStander = new JMenuItem("Add Stander(s)");
-        secondMenu.add(addStander);
+        editTab.add(addStander);
     }
 
     private void addSearchTab() {
@@ -100,27 +98,42 @@ class MenuBar extends JMenuBar implements ActionListener,
     }
 
     public void activateMenuListener() {
-        open.addActionListener(mainFrame);
-        exit.addActionListener(mainFrame);
-        addStander.addActionListener(mainFrame);
-        help.addActionListener(mainFrame);
-        version.addActionListener(mainFrame);
+        open.addActionListener(this);
+        exit.addActionListener(this);
+        addStander.addActionListener(this);
+        help.addActionListener(this);
+        version.addActionListener(this);
 
-        open.addMenuKeyListener(mainFrame);
-        exit.addMenuKeyListener(mainFrame);
-        addStander.addMenuKeyListener(mainFrame);
-        help.addMenuKeyListener(mainFrame);
-        version.addMenuKeyListener(mainFrame);
+        open.addMenuKeyListener(this);
+        exit.addMenuKeyListener(this);
+        addStander.addMenuKeyListener(this);
+        help.addMenuKeyListener(this);
+        version.addMenuKeyListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object object = e.getSource();
-        //menu bar
-        if (object.equals(firstMenu.getItem(0))) { //open
-
-        } else if (object.equals(firstMenu.getItem(1))) { //exit
+        //menu bar objects
+        //TODO refactor getItem index name to non-numeric value
+        if (object.equals(fileTab.getItem(0))) { //open
+        } else if (object.equals(fileTab.getItem(1))) { //exit
             System.exit(0);
         }
+    }
+
+    @Override
+    public void menuKeyTyped(MenuKeyEvent e) {
+
+    }
+
+    @Override
+    public void menuKeyPressed(MenuKeyEvent e) {
+
+    }
+
+    @Override
+    public void menuKeyReleased(MenuKeyEvent e) {
+
     }
 }
