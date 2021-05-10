@@ -4,13 +4,14 @@
 
 ## JAVA Version
 
-Java(+javac) version: 15.0.1
+> Java(+javac) version: 15.0.1
 
 ## Default encoding type
 
-UTF-8 *(Some file may be uploaded with ANSI encoding. In that case, please let me know)*
+> UTF-8 *(Some file may be uploaded with ANSI encoding. In that case, please let me know)*
 
 ## External libraries (3rd Party API).
 
+>
 
-###FOLDER
+### FOLDER
