@@ -1,14 +1,16 @@
 # DutyAssigner
-Set duty(watch) standers in a smart way to make simple and fair duty calendar schedule to everyone.
+> Set duty(watch) standers in a smart way to make simple
+>  and fair duty calendar schedule to everyone.
 
 ## JAVA Version
 
-Java version: 15.0.1
+Java(+javac) version: 15.0.1
 
 ## Default encoding type
 
-UTF-8
+UTF-8 *(Some file may be uploaded with ANSI encoding. In that case, please let me know)*
 
-## External libraries
+## External libraries (3rd Party API).
 
-Used java.swing library.
+
+###FOLDER
