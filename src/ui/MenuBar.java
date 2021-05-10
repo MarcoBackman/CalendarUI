@@ -16,6 +16,9 @@ import javax.swing.event.MenuKeyListener;
 class MenuBar extends JMenuBar implements ActionListener,
                                           MenuKeyListener {
 
+    //File Tab
+    final int FILE_OPEN = 0, FILE_EXIT = 1;
+
     public static JMenu fileTab, editTab, searchTab, helpTab;
     public static JMenuItem open, exit,       //File tab components
                             addStander,       //Edit tab components
@@ -115,9 +118,9 @@ class MenuBar extends JMenuBar implements ActionListener,
     public void actionPerformed(ActionEvent e) {
         Object object = e.getSource();
         //menu bar objects
-        //TODO refactor getItem's ordinal index to nominal index
-        if (object.equals(fileTab.getItem(0))) { //open
-        } else if (object.equals(fileTab.getItem(1))) { //exit
+        if (object.equals(fileTab.getItem(FILE_OPEN))) {
+
+        } else if (object.equals(fileTab.getItem(FILE_EXIT))) {
             System.exit(0);
         }
     }
