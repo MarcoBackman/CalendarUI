@@ -115,7 +115,7 @@ class MenuBar extends JMenuBar implements ActionListener,
     public void actionPerformed(ActionEvent e) {
         Object object = e.getSource();
         //menu bar objects
-        //TODO refactor getItem index name to non-numeric value
+        //TODO refactor getItem's ordinal index to nominal index
         if (object.equals(fileTab.getItem(0))) { //open
         } else if (object.equals(fileTab.getItem(1))) { //exit
             System.exit(0);
