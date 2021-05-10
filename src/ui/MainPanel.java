@@ -26,6 +26,9 @@ import javax.swing.SwingConstants;
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener {
 
+    //Fixed Values
+    final int MAX_DATE_COUNT = 42;
+
     //External Panel
     JPanel centerPanel, northMargin, southMargin, westMargin, eastMargin;
 
@@ -55,6 +58,14 @@ class MainPanel extends JPanel implements ActionListener,
         calendarPanel.setLayout(new GridLayout(7, 6, 15, 15));
         calendarPanel.setBackground(ColorCode.WHITE_BACKGROUND);
         calendarPanel.setOpaque(true);
+
+        addDatePanel();
+    }
+
+    private void addDatePanel() {
+        for (int i = 0; i < MAX_DATE_COUNT; i++) {
+            //add calendar date panel
+        }
     }
 
     private void setPanels () {
@@ -72,7 +83,6 @@ class MainPanel extends JPanel implements ActionListener,
         southMargin = new JPanel();
         southMargin.setLayout(new GridLayout(2, 0));
 
-        //TODO: refactor these
         this.add(northMargin, BorderLayout.NORTH);
         this.add(eastMargin, BorderLayout.EAST);
         this.add(southMargin, BorderLayout.SOUTH);
