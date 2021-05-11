@@ -28,9 +28,18 @@ public class CalendarGenerator {
 
 	}
 
-    //returns day index value of the 1st date - check notes from above.
-	public int getStartDay () {
+    //returns a day index value of the 1st date - @see DAY INDEX VALUE.
+	public int getStartDay (int month, int year) {
+        Calendar instance = Calendar.getInstance();
+        instance.set(year, month - 1, 1);
 		return calendar.get(Calendar.DAY_OF_WEEK);
+	}
+
+    //get a day index value of the specified date - @see DAY INDEX VALUE.
+	public int getDay(int month, int date, int year) {
+        Calendar instance = Calendar.getInstance();
+        instance.set(year, month - 1, date);
+		return instance.get(Calendar.DAY_OF_WEEK);
 	}
 
 	//amount of dates in specified month and year - e.g. Feburary will return 28
@@ -40,12 +49,6 @@ public class CalendarGenerator {
 		return calendarInstance.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
-	//number of date in instantiated month
-	public int getNumDates() {
-		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-	}
-
-	//General date info
 	public Date dateInfo(int month, int year) {
 		calendar = Calendar.getInstance();
 		//January : 0 ~ December : 11
@@ -53,7 +56,6 @@ public class CalendarGenerator {
 		return calendar.getTime();
 	}
 
-	//General date info
 	public Date dateInfo(int month, int date, int year) {
 		calendar = Calendar.getInstance();
 		//January : 0 ~ December : 11
@@ -61,8 +63,8 @@ public class CalendarGenerator {
 		return calendar.getTime();
 	}
 
-	//designate standers
-	public void generateStander(int year, int month) {
-
+    //Rename HashDoublyLinkedList
+	public HashDoublyLinkedList generateCalendar(int month, int year) {
+        return null;
 	}
 }
