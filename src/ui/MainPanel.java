@@ -26,7 +26,6 @@ import javax.swing.SwingConstants;
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener {
 
-    //Fixed Values
     final int MAX_DATE_COUNT = 42;
 
     //External Panel
