@@ -8,7 +8,7 @@
 
 ## Default encoding type
 
-> UTF-8 *(Some file may be uploaded with ANSI encoding. In that case, please let me know)*
+> UTF-8
 
 ## External libraries (3rd Party API).
 
