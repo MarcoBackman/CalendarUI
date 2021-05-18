@@ -1,12 +1,22 @@
 @ECHO off
 
-::compiles root level java files
+::compiles root level java package files
 cd src
 javac -cp ..\bin\ -d ..\bin\ *.java
 echo "root files compilation done."
 
-::compiles interface related java files
-cd ui
+::compiles "calendar related java package files
+cd calendar
+javac -cp ..\..\bin\ -d ..\..\bin\ *.java
+echo "calendar files compilation done."
+
+::compiles data related java package files
+cd ..\data
+javac -cp ..\..\bin\ -d ..\..\bin\ *.java
+echo "data files compilation done."
+
+::compiles interface related java package files
+cd ..\ui
 javac -cp ..\..\bin\ -d ..\..\bin\ *.java
 echo "ui files compilation done."
 
