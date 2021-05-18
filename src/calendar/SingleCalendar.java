@@ -2,16 +2,18 @@ package classfile.calendar;
 
 import java.awt.Color;
 
-import javax.swing.Janel;
+import javax.swing.JPanel;
 
-import java.uitl.ArrayList;
-import java.util.HashTable;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 import java.io.Serializable;
 
+import classfile.ui.ColorCode;
+
 public class SingleCalendar implements Serializable {
 
-    final int MAX_DATE_COUNT = 42;
+    final static int MAX_BLOCK_COUNT = 42;
 
     int year = 0;
     int month = 0;
@@ -19,12 +21,12 @@ public class SingleCalendar implements Serializable {
     int startingIndex = 0; //Value that indicates where the first date starts
     boolean startingIndexAssigned = false;
 
-    static HashTable<Integer, JPanel> dateBlockCollection
-      = new HashTable<Integer, JPanel> (MAX_DATE_COUNT);
+    static Hashtable<Integer, JPanel> dateBlockCollection
+      = new Hashtable<Integer, JPanel> (MAX_BLOCK_COUNT);
 
-    SingleCalendar(int year, int month) {
-        this.year = year;
-        this.month = month;
+    SingleCalendar(DateSet dateSet) {
+        this.year = dateSet.getYear();
+        this.month = dateSet.getMonth();
     }
 
     //Add empty(inactive) block node to the table
@@ -46,12 +48,12 @@ public class SingleCalendar implements Serializable {
     }
 
     //Add active day block node to the table
-    public void addDateBlock(DateBlock block) {
+    public void addDateBlock(DateBlock dateBlock) {
         if (!startingIndexAssigned) {
             startingIndex = counterIndex;
             startingIndexAssigned = true;
         }
-        dateBlockCollection.put(counterIndex, (JPanel)block);
+        dateBlockCollection.put(counterIndex, (JPanel)dateBlock);
         counterIndex++;
     }
 
@@ -70,12 +72,11 @@ public class SingleCalendar implements Serializable {
         return (JPanel)dateBlockCollection.get(dateIndex);
     }
 
-    public DateBlock replaceDateBlock(Integer newDate, DateBlock newBlock) {
+    public DateBlock replaceDateBlock(Integer newDate, DateBlock dateBlock) {
         //TODO: add type hanlder - refrain from using casting
         Integer dateIndex = (Integer)((startingIndex + newDate) - 1);
         DateBlock oldBlock = (DateBlock)dateBlockCollection.get(dateIndex);
-        dateBlockCollection.put(dateIndex, (JPanel)newBlock);
+        dateBlockCollection.put(dateIndex, (JPanel)dateBlock);
         return oldBlock;
     }
-
 }
