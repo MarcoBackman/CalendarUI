@@ -10,6 +10,11 @@
 
 > UTF-8 *(Some file may be uploaded with ANSI encoding. In that case, please let me know)*
 
+## Editors on Use
+
+- Atom: for general java files
+- NotePad++: for batch files and other language files
+
 ## External libraries (3rd Party API).
 
 >
@@ -18,5 +23,14 @@
 
 
 ## Code Notice.
+
+- Naming clarification (Date and Day)</p>
+ Date and Day refers to different meaning.
+Date indicates a numerical value between 1 ~ 31</p>
+More specifically, a numeric value that corresponds to the ordinal numbers that act as  suffixes. </p>
+Ex) March '31'st, January '13'rd. </p>
+ Day indicates a days of the week in words such as Monday, Tuesday, Wednesday, and so on.</p>
+Also, Day Index value indicates days of the week in numerical value ranging from 0 to 6. </p>
+
 
 **Program starts from Main!**
