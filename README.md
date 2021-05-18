@@ -24,7 +24,7 @@
 
 ## Code Notice.
 
-- * Naming clarification (Date and Day) *</p>
+- *Naming clarification (Date and Day)*</p>
  Date and Day refers to different meaning.
 Date indicates a numerical value between 1 ~ 31</p>
 More specifically, a numeric value that corresponds to the ordinal numbers that act as  suffixes. </p>
