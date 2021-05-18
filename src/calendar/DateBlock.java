@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import classfile.ui.ColorCode;
 
+// Do not get confused with DateSet.java
 public class DateBlock extends JPanel implements MouseListener {
 
     private int year;
@@ -41,14 +42,14 @@ public class DateBlock extends JPanel implements MouseListener {
 
     DateBlock (SingleCalendar associatedCalendar, DateSet dateSet) {
         this.associatedCalendar = associatedCalendar;
-        this.year = dateSet.year;
-        this.month = dateSet.month;
-        this.date = dateSet.date;
-        this.day = dateSet.day;
+        this.year = dateSet.getYear();
+        this.month = dateSet.getMonth();
+        this.date = dateSet.getDate();
+        this.day = dateSet.getDay();
         setDefaultLayout();
     }
 
-    private setDefaultLayout() {
+    private void setDefaultLayout() {
         setLayout(new BorderLayout());
         dateLabel = new JLabel("" + date + " (" + day + ")");
         //detailPanel = new DetailPanel(); - detailPanel not implemented yet
@@ -56,12 +57,12 @@ public class DateBlock extends JPanel implements MouseListener {
         this.addMouseListener(this); //seems something not right...review this
 
         if (isToday()) {
-            currentColor = ColorCode.CURRENT_DATE_PANEL;
+            currentColor = ColorCode.CURRENT_DATE_PANEL; //
         } else {
             currentColor = ColorCode.WHITE_BACKGROUND;
         }
         setBackground(currentColor);
-        detailPanel.setBackground(currentColor);
+        //detailPanel.setBackground(currentColor); - detailPanel not implemented yet
 
         add(dateLabel, BorderLayout.NORTH);
         //add(detailPanel, BorderLayout.CENTER);- detailPanel not implemented yet
@@ -76,12 +77,14 @@ public class DateBlock extends JPanel implements MouseListener {
     }
 
     public boolean isToday() {
+        /* -SharedValue not implemented yet
         if (year != SharedValue.current_year)
             return false;
         if (month != SharedValue.current_month)
             return false;
         if (date != SharedValue.current_date)
             return false;
+        */
         return true;
     }
 
@@ -107,7 +110,7 @@ public class DateBlock extends JPanel implements MouseListener {
          this.day = day;
      }
 
-     public setWeekday() {
+     public void setWeekday() {
          this.isWeekend = false;
      }
 
@@ -119,6 +122,14 @@ public class DateBlock extends JPanel implements MouseListener {
      public void setFirstDate() {
          if (!isLastDate) {
              isFirstDate = true;
+         } else {
+             //throw exception or error messages
+         }
+     }
+
+     public void setLastDate() {
+         if (!isFirstDate) {
+             isLastDate = true;
          } else {
              //throw exception or error messages
          }
@@ -141,7 +152,7 @@ public class DateBlock extends JPanel implements MouseListener {
      }
 
      public void setNextWeekend(DateBlock block) {
-         this.nextWeekend = node;
+         this.nextWeekend = block;
      }
 
      //Used for background color change
@@ -154,7 +165,7 @@ public class DateBlock extends JPanel implements MouseListener {
              currentColor = ColorCode.WHITE_BACKGROUND;
          }
          setBackground(currentColor);
-         detailPanel.setBackground(currentColor);
+         //detailPanel.setBackground(currentColor); - detailPanel not implemented yet
          this.validate();
          this.repaint();
          //detailPanel.validate(); - detailPanel not implemented yet
@@ -168,15 +179,19 @@ public class DateBlock extends JPanel implements MouseListener {
       */
 
       public int getYear() {
-
+          return this.year;
       }
 
       public int getMonth() {
-
+          return this.month;
       }
 
       public int getDate() {
+          return this.date;
+      }
 
+      public String getDay() {
+          return this.day;
       }
 
       /* - StanderInfo Not implemented yet
@@ -193,9 +208,11 @@ public class DateBlock extends JPanel implements MouseListener {
           return isLastDate;
       }
 
+      /* DetailPanel not implemented yet
       public DetailPanel getDetailPanel() {
           return detailPanel;
       }
+      */
 
       public SingleCalendar getAssociatedCalendar() {
           return associatedCalendar;
@@ -236,19 +253,22 @@ public class DateBlock extends JPanel implements MouseListener {
        	@Override
        	public void mouseReleased(MouseEvent e) {
             setBackground(currentColor);
-            detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
+            //- detailPanel not implemented yet
+            //detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
        	}
 
        	@Override
        	public void mouseEntered(MouseEvent e) {
        		setBackground(ColorCode.DATE_PANEL_HOVER);
-            detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
+            //- detailPanel not implemented yet
+            //detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
        	}
 
        	@Override
        	public void mouseExited(MouseEvent e) {
        		setBackground(currentColor);
-            detailPanel.setBackground(currentColor);
+            //- detailPanel not implemented yet
+            //detailPanel.setBackground(currentColor);
        	}
 
 }
