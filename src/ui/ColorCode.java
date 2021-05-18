@@ -11,21 +11,27 @@ import java.awt.Color;
 
  public class ColorCode {
      //#D1DEF0 - Pattens Blue(BLUE)
-    static final Color FILE_TAB_BACKGROUND = new Color(209, 222, 240);
+    public static final Color FILE_TAB_BACKGROUND = new Color(209, 222, 240);
     //#C5D6ED - Onahau(BLUE)
- 	static final Color BUTTON_BACKGROUND = new Color(197, 214, 237);
+ 	public static final Color BUTTON_BACKGROUND = new Color(197, 214, 237);
     //#87AFDD - Jordy Blue(BLUE)
- 	static final Color FRAME_BACKGROUND = new Color(135, 175, 221);
+ 	public static final Color FRAME_BACKGROUND = new Color(135, 175, 221);
     //#8CB0DB - Portage(BLUE)
-    static final Color STANDER_BACKGROUND = new Color(140, 176, 219);
+    public static final Color STANDER_BACKGROUND = new Color(140, 176, 219);
     //#107FB5 - Denim(BLUE)
- 	static final Color BUTTON_PRESSED = new Color(16, 127, 181);
+ 	public static final Color BUTTON_PRESSED = new Color(16, 127, 181);
+    //#9A9A9A - Soft lime green(GREEN)
+    public static final Color CURRENT_DATE_PANEL = new Color(46, 92, 52);
+    //#C0C0C0 - Light gray(Gray)
+    public static final Color EMPTY_PANEL = new Color(192, 192, 192);
+    //#9A9A9A - Dark gray(Gray)
+    public static final Color DATE_PANEL_HOVER = new Color(154, 154, 154);
     //#D9D9D9 - Gainsboro(White)
- 	static final Color CENTER_FRAME_BACKGROUND = new Color(217, 217, 217);
+ 	public static final Color CENTER_FRAME_BACKGROUND = new Color(217, 217, 217);
     //#E78A8A - Carissma(RED)
- 	static final Color CANCEL_BACKGROUND = new Color(231, 138, 138);
+ 	public static final Color CANCEL_BACKGROUND = new Color(231, 138, 138);
 
- 	static final Color RED_BACKGROUND = Color.RED;
- 	static final Color WHITE_BACKGROUND = Color.WHITE;
- 	static final Color DARK_GRAY_BACKGROUND = Color.DARK_GRAY;
+ 	public static final Color RED_BACKGROUND = Color.RED;
+ 	public static final Color WHITE_BACKGROUND = Color.WHITE;
+ 	public static final Color DARK_GRAY_BACKGROUND = Color.DARK_GRAY;
  }
