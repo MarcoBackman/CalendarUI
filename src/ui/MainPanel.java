@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener {
 
-    final int MAX_DATE_COUNT = 42;
+    final int MAX_BLOCK_COUNT = 42;
 
     //External Panel
     JPanel centerPanel, northMargin, southMargin, westMargin, eastMargin;
@@ -62,8 +62,9 @@ class MainPanel extends JPanel implements ActionListener,
     }
 
     private void addDatePanel() {
-        for (int i = 0; i < MAX_DATE_COUNT; i++) {
+        for (int i = 0; i < MAX_BLOCK_COUNT; i++) {
             //add calendar date panel
+        
         }
     }
 
