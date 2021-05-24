@@ -31,6 +31,7 @@ import java.awt.Color;
     //#E78A8A - Carissma(RED)
  	public static final Color CANCEL_BACKGROUND = new Color(231, 138, 138);
 
+    public static final Color BLACK = Color.BLACK;
  	public static final Color RED_BACKGROUND = Color.RED;
  	public static final Color WHITE_BACKGROUND = Color.WHITE;
  	public static final Color DARK_GRAY_BACKGROUND = Color.DARK_GRAY;

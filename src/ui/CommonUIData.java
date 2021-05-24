@@ -19,7 +19,7 @@ public class CommonUIData {
 	 * This method must be called at least once.
 	 * @see classfile.ui.MainFrame#frameSetting() - initial call
 	 */
-	public static void getScreenLocation(JFrame frame,
+	public static void setScreenLocation(JFrame frame,
                                          int windowWidth,
                                          int windowHight) {
 		GraphicsEnvironment ge

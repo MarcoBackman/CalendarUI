@@ -23,6 +23,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import classfile.calendar.CalendarGenerator;
+import classfile.calendar.CalendarList;
+import classfile.calendar.DateSet;
+import classfile.calendar.SingleCalendar;
+
+import classfile.data.SharedDateValue;
+import classfile.data.SharedUserValue;
+
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener {
 
@@ -44,6 +52,9 @@ class MainPanel extends JPanel implements ActionListener,
             dateSelectButton,
             createScheduleButton;
 
+    CalendarGenerator calendarGenerator;
+    CalendarList calendarList;
+
     //Do not change the order of the methods.
     MainPanel() {
         setCalendarPanel();
@@ -51,43 +62,60 @@ class MainPanel extends JPanel implements ActionListener,
         setButtons();
         activateListener();
         validate();
+        repaint();
     }
+
     private void setCalendarPanel() {
         calendarPanel = new JPanel();
-        calendarPanel.setLayout(new GridLayout(7, 6, 15, 15));
+        calendarPanel.setLayout(new GridLayout(6, 7, 3, 3));
         calendarPanel.setBackground(ColorCode.WHITE_BACKGROUND);
         calendarPanel.setOpaque(true);
-
         addDatePanel();
     }
 
     private void addDatePanel() {
+        calendarGenerator = new CalendarGenerator();
+        calendarList = new CalendarList();
+        DateSet today = new DateSet(SharedDateValue.currentYear,
+                                    SharedDateValue.currentMonth,
+                                    SharedDateValue.currentDate);
+
+        //Create or locate single calendar
+        SingleCalendar newSingleCalendar
+         = calendarGenerator.createSingleCalendar(today);
+
+        //Add that calendar to the calendar set
+        calendarList.addNewMonth(newSingleCalendar, today);
+
         for (int i = 0; i < MAX_BLOCK_COUNT; i++) {
-            //add calendar date panel
-        
+            calendarPanel.add(newSingleCalendar.getDateBlockByIndex(i));
         }
+
+        SharedUserValue.calendarList = calendarList;
     }
 
     private void setPanels () {
+        this.setLayout(new BorderLayout());
+
         centerPanel = new JPanel();
         northMargin = new JPanel();
         eastMargin = new JPanel();
         southMargin = new JPanel();
         westMargin = new JPanel();
 
-        centerPanel.setLayout(new GridLayout(1, 1, 10, 10));
+        centerPanel.setLayout(new GridLayout(1, 1));
         centerPanel.add(calendarPanel, BorderLayout.CENTER);
         centerPanel.addMouseListener(this);
         centerPanel.setFocusable(true);
 
-        southMargin = new JPanel();
-        southMargin.setLayout(new GridLayout(2, 0));
+        northMargin = new JPanel();
+        northMargin.setLayout(new GridLayout(1, 5));
 
         this.add(northMargin, BorderLayout.NORTH);
-        this.add(eastMargin, BorderLayout.EAST);
-        this.add(southMargin, BorderLayout.SOUTH);
-        this.add(westMargin, BorderLayout.WEST);
-        this.add(calendarPanel, BorderLayout.CENTER);
+        //this.add(eastMargin, BorderLayout.EAST); - Not implemented yet
+        //this.add(southMargin, BorderLayout.SOUTH);  - Not implemented yet
+        //this.add(westMargin, BorderLayout.WEST);  - Not implemented yet
+        this.add(centerPanel, BorderLayout.CENTER);
     }
 
     private void setButtons() {
@@ -113,11 +141,11 @@ class MainPanel extends JPanel implements ActionListener,
         dateSelectButton.setBackground(ColorCode.BUTTON_BACKGROUND);
         createScheduleButton.setBackground(ColorCode.BUTTON_BACKGROUND);
 
-        southMargin.add(addStanderButton);
-        southMargin.add(editTableButton);
-        southMargin.add(dateSelectButton);
-		southMargin.add(spaceGap);
-        southMargin.add(createScheduleButton);
+        northMargin.add(addStanderButton);
+        northMargin.add(editTableButton);
+        northMargin.add(dateSelectButton);
+		northMargin.add(spaceGap);
+        northMargin.add(createScheduleButton);
 
     }
 

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /*
  *  - DAY INDEX VALUE -
- *  All numerical index values are subtracted by 1
+ *  All numerical index values are subtracted by 1 from the original value
  *  DAY_OF_WEEK = 0 : Sunday
  *  DAY_OF_WEEK = 1 : Monday
  *  DAY_OF_WEEK = 2 : Tuesday
@@ -27,7 +27,7 @@ public class DateSet {
     private int dayIndex;
     private String day;
 
-    DateSet(int year, int month, int date) {
+    public DateSet(int year, int month, int date) {
         this.year = year;
         this.month = month;
         this.date = date;
@@ -55,7 +55,11 @@ public class DateSet {
         Calendar instance = Calendar.getInstance();
         instance.set(this.year, this.month, this.date);
         int dayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
-        return DayCharacter.DAYS_IN_ENGLISH_LETTER[dayIndex];
+
+        //@Debugging
+        assertDay(dayIndex);
+
+        return CalendarCharacter.DAYS_IN_ENGLISH_LETTER[dayIndex];
     }
 
     public int getYear() {
@@ -81,5 +85,16 @@ public class DateSet {
 
     public String getDay(){
         return this.day;
+    }
+
+    private void assertDay (int dayIndex) {
+        try {
+            assert false;
+        } catch (AssertionError e) {
+            System.out.println(CalendarCharacter.MONTHS_IN_ENGLISH_SHORT[this.month]
+            + "/" + this.date
+            + " | " + dayIndex
+            + " : " + CalendarCharacter.DAYS_IN_ENGLISH_LONG[dayIndex]);
+        }
     }
 }

@@ -29,7 +29,7 @@ public class DateBlock extends JPanel implements MouseListener {
     private DateBlock previousWeekend, nextWeekend;
 
     private JLabel dateLabel;
-    //private DetailPanel detailPanel; - detailPanel not implemented yet
+    private DetailPanel detailPanel;
 
     /* - drop handler not implemented yet
     private DragGestureRecognizer dgr;
@@ -52,20 +52,20 @@ public class DateBlock extends JPanel implements MouseListener {
     private void setDefaultLayout() {
         setLayout(new BorderLayout());
         dateLabel = new JLabel("" + date + " (" + day + ")");
-        //detailPanel = new DetailPanel(); - detailPanel not implemented yet
+        detailPanel = new DetailPanel();
 
-        this.addMouseListener(this); //seems something not right...review this
+        this.addMouseListener(this);
 
         if (isToday()) {
-            currentColor = ColorCode.CURRENT_DATE_PANEL; //
+            currentColor = ColorCode.CURRENT_DATE_PANEL;
         } else {
             currentColor = ColorCode.WHITE_BACKGROUND;
         }
         setBackground(currentColor);
-        //detailPanel.setBackground(currentColor); - detailPanel not implemented yet
+        detailPanel.setBackground(currentColor);
 
         add(dateLabel, BorderLayout.NORTH);
-        //add(detailPanel, BorderLayout.CENTER);- detailPanel not implemented yet
+        add(detailPanel, BorderLayout.CENTER);
 
         /* not implemented yet; consider refactoring DropTarget's constructer
         DropHandler = new DropHandler();
@@ -111,6 +111,7 @@ public class DateBlock extends JPanel implements MouseListener {
      }
 
      public void setWeekday() {
+         dateLabel.setForeground(ColorCode.BLACK);
          this.isWeekend = false;
      }
 
@@ -153,23 +154,6 @@ public class DateBlock extends JPanel implements MouseListener {
 
      public void setNextWeekend(DateBlock block) {
          this.nextWeekend = block;
-     }
-
-     //Used for background color change
-     // when hovering mouse cursor exits the area
-     public void setOriginalColor() {
-         //must sustain today block's color even after exiting the area
-         if (isToday()) {
-             currentColor = ColorCode.CURRENT_DATE_PANEL;
-         } else {
-             currentColor = ColorCode.WHITE_BACKGROUND;
-         }
-         setBackground(currentColor);
-         //detailPanel.setBackground(currentColor); - detailPanel not implemented yet
-         this.validate();
-         this.repaint();
-         //detailPanel.validate(); - detailPanel not implemented yet
-         //detailPanel.repaint(); - detailPanel not implemented yet
      }
 
      /*
@@ -253,22 +237,27 @@ public class DateBlock extends JPanel implements MouseListener {
        	@Override
        	public void mouseReleased(MouseEvent e) {
             setBackground(currentColor);
-            //- detailPanel not implemented yet
-            //detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
+            detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
+            validateAllComponents();
        	}
 
        	@Override
        	public void mouseEntered(MouseEvent e) {
-       		setBackground(ColorCode.DATE_PANEL_HOVER);
-            //- detailPanel not implemented yet
-            //detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
+            detailPanel.setBackground(ColorCode.DATE_PANEL_HOVER);
+            validateAllComponents();
        	}
 
        	@Override
        	public void mouseExited(MouseEvent e) {
        		setBackground(currentColor);
-            //- detailPanel not implemented yet
-            //detailPanel.setBackground(currentColor);
+            detailPanel.setBackground(currentColor);
+            validateAllComponents();
        	}
 
+        public void validateAllComponents(){
+            this.validate();
+            this.repaint();
+            detailPanel.validate();
+            detailPanel.repaint();
+        }
 }
