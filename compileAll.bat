@@ -1,12 +1,7 @@
 @ECHO off
 
-::compiles root level java package files
-cd src
-javac -cp ..\bin\ -d ..\bin\ *.java
-echo "root files compilation done."
-
 ::compiles "calendar related java package files
-cd calendar
+cd src\calendar
 javac -cp ..\..\bin\ -d ..\..\bin\ *.java
 echo "calendar files compilation done."
 
@@ -19,5 +14,16 @@ echo "data files compilation done."
 cd ..\ui
 javac -cp ..\..\bin\ -d ..\..\bin\ *.java
 echo "ui files compilation done."
+
+::compiles unitTest related java package files
+cd ..\unitTest
+javac -cp ..\..\bin\ -d ..\..\bin\ *.java
+echo "unitTest files compilation done."
+
+::compiles root level java package files
+cd ..
+javac -cp ..\bin\ -d ..\bin\ *.java
+echo "root files compilation done."
+
 
 PAUSE
