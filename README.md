@@ -2,6 +2,8 @@
 > Set duty(watch) standers in a smart way to make simple
 >  and fair duty calendar schedule to everyone.
 
+> A calendar set is based on Georgian group calendar
+
 ## JAVA Version
 
 > Java(+javac) version: 15.0.1
@@ -34,3 +36,5 @@ Also, Day Index value indicates days of the week in numerical value ranging from
 
 
 **Program starts from Main!**
+
+Main.java is located in "src" folder
