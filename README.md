@@ -4,6 +4,9 @@
 
 > A calendar set is based on Georgian group calendar
 
+## Current GUI result
+![image info](./src/img/FirstVersion.PNG)
+
 ## JAVA Version
 
 > Java(+javac) version: 15.0.1
