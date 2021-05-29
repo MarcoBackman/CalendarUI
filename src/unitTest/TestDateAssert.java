@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import classfile.data.SharedDateValue;
+import classfile.calendar.CalendarCharacter;
 
 /*
  *  - DAY INDEX VALUE -
@@ -56,7 +57,7 @@ public class TestDateAssert {
         }
     }
 
-    private void todyMonthMatch(int expectedMonth) throws AssertionError {
+    private void todyMonthMatch(int expectedMonth) {
         int month = SharedDateValue.todayMonth;
         try {
             assert month == expectedMonth;
@@ -66,7 +67,7 @@ public class TestDateAssert {
         }
     }
 
-    private void todyDateMatch(int expectedDate) throws AssertionError {
+    private void todyDateMatch(int expectedDate) {
         int date = SharedDateValue.todayDate;
         try {
             assert date == expectedDate;
@@ -97,30 +98,43 @@ public class TestDateAssert {
 
     }
 
-    public printSpecifiedDateInfo(int year, int month, int date) {
+    public void printSpecifiedDateInfo(int year, int month, int date) {
         String expectedDate = year + "/" + month + "/" + date;
         Date actualDate = null;
         int maximumDate = 0;
+        int dayIndex = 0;
         int startDayIndex = 0;
         try {
             Calendar instance = Calendar.getInstance();
-            instance.set(year, month, date);
+            instance.set(year, month - 1, date);
 
             actualDate = instance.getTime();
             maximumDate = instance.getActualMaximum(Calendar.DAY_OF_MONTH);
-            startDayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
+            dayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
 
+            instance.set(year, month - 1, 1);
+            startDayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
             assert false;
         } catch (AssertionError e) {
             String border = "----------------------------------";
-            String header1 = "Target Date :"
-            String header2 = "Actual Date"
-            String header3 = "Total Date :"
-            String header4 = "Starting Date :"
-            String header5 = "Day :"
+            String targetDateLabel = "Target Date :";
+            String actualDateLabel = "Actual Date";
+            String dayLabel = "Day :";
+            String startingDateLabel = "Starting Date :";
+            String totalDateLabel = "Total Date :";
             System.out.println(border);
-            System.out.printf("%-15s | 15s\n", header1, header2);
-            System.out.printf("%-15s | 15s\n", header2, header2);
+            //target date
+            System.out.printf("%-15s\n", targetDateLabel);
+            System.out.printf("%-15s\n", expectedDate);
+            System.out.printf("%-10s : %6s\n", dayLabel,
+               CalendarCharacter.DAYS_IN_ENGLISH_LONG[dayIndex]);
+            System.out.printf("%-10s : %6s\n", startingDateLabel,
+               CalendarCharacter.DAYS_IN_ENGLISH_LONG[startDayIndex]);
+            System.out.printf("%-10s : %6d\n", totalDateLabel, maximumDate);
+            System.out.println(border);
+            //actual date
+            System.out.printf("%-15s\n", actualDateLabel);
+            System.out.printf("%-15s\n", actualDate.toString());
             System.out.println(border);
        }
     }

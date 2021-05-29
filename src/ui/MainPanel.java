@@ -65,10 +65,11 @@ class MainPanel extends JPanel implements ActionListener,
         repaint();
     }
 
+    //Default date set to PC time
     private void setCalendarPanel() {
         calendarPanel = new JPanel();
         calendarPanel.setLayout(new GridLayout(6, 7, 3, 3));
-        calendarPanel.setBackground(ColorCode.WHITE_BACKGROUND);
+        calendarPanel.setBackground(ColorCode.DARK_GRAY_BACKGROUND);
         calendarPanel.setOpaque(true);
         addDatePanel();
     }
@@ -76,9 +77,14 @@ class MainPanel extends JPanel implements ActionListener,
     private void addDatePanel() {
         calendarGenerator = new CalendarGenerator();
         calendarList = new CalendarList();
-        DateSet today = new DateSet(SharedDateValue.currentYear,
-                                    SharedDateValue.currentMonth,
-                                    SharedDateValue.currentDate);
+
+        //de-referencing values
+        int year = SharedDateValue.getTodayYear();
+        int month = SharedDateValue.getTodayMonth();
+        int date = SharedDateValue.getTodayDate();
+
+        //check if this data is de-referenced from static values
+        DateSet today = new DateSet(year, month, date);
 
         //Create or locate single calendar
         SingleCalendar newSingleCalendar

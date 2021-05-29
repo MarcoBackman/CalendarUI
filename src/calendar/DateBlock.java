@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import classfile.ui.ColorCode;
 
+import classfile.data.SharedDateValue;
+
 // Do not get confused with DateSet.java
 public class DateBlock extends JPanel implements MouseListener {
 
@@ -77,14 +79,12 @@ public class DateBlock extends JPanel implements MouseListener {
     }
 
     public boolean isToday() {
-        /* -SharedValue not implemented yet
-        if (year != SharedValue.current_year)
+        if (year != SharedDateValue.todayYear)
             return false;
-        if (month != SharedValue.current_month)
+        if (month != SharedDateValue.todayMonth)
             return false;
-        if (date != SharedValue.current_date)
+        if (date != SharedDateValue.todayDate)
             return false;
-        */
         return true;
     }
 

@@ -20,8 +20,8 @@ import java.awt.Color;
     public static final Color STANDER_BACKGROUND = new Color(140, 176, 219);
     //#107FB5 - Denim(BLUE)
  	public static final Color BUTTON_PRESSED = new Color(16, 127, 181);
-    //#9A9A9A - Soft lime green(GREEN)
-    public static final Color CURRENT_DATE_PANEL = new Color(46, 92, 52);
+    //#58D68D - Soft lime green(GREEN)
+    public static final Color CURRENT_DATE_PANEL = new Color(88, 214, 141);
     //#C0C0C0 - Light gray(Gray)
     public static final Color EMPTY_PANEL = new Color(192, 192, 192);
     //#9A9A9A - Dark gray(Gray)

@@ -15,7 +15,8 @@ class Main {
 
 
     private void Testing() {
-        TestDateAssert test = new TestDateAssert(2021, 5, 22);
+        TestDateAssert test = new TestDateAssert(2021, 5, 28);
+        test.printSpecifiedDateInfo(2021, 5, 28);
         test.testTotalDate(31);
         System.out.println("Test done.");
     }

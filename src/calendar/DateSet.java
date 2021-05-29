@@ -3,6 +3,8 @@ package classfile.calendar;
 import java.util.Calendar;
 import java.util.Date;
 
+import java.lang.StringBuilder;
+
 /*
  *  - DAY INDEX VALUE -
  *  All numerical index values are subtracted by 1 from the original value
@@ -54,10 +56,10 @@ public class DateSet {
     private String setDay() {
         Calendar instance = Calendar.getInstance();
         instance.set(this.year, this.month, this.date);
-        int dayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
+        this.dayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
 
         //@Debugging
-        assertDay(dayIndex);
+        assertTimeInfo();
 
         return CalendarCharacter.DAYS_IN_ENGLISH_LETTER[dayIndex];
     }
@@ -68,11 +70,6 @@ public class DateSet {
 
     public int getMonth() {
         return this.month;
-    }
-
-    //returns month index value instead of actual month value
-    public int getMonthIndex() {
-        return this.month - 1;
     }
 
     public int getDate() {
@@ -87,14 +84,30 @@ public class DateSet {
         return this.day;
     }
 
-    private void assertDay (int dayIndex) {
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("-DateSet Info- \n");
+        sb.append("Year: ");
+        sb.append(this.year);
+        sb.append(" Month index: ");
+        sb.append(this.month);
+        sb.append(" Month: ");
+        sb.append(getMonth());
+        sb.append(" : ");
+        sb.append(CalendarCharacter.MONTHS_IN_ENGLISH_SHORT[getMonth()]);
+        sb.append("\nDate: ");
+        sb.append(this.date);
+        sb.append(" Day: ");
+        sb.append(this.day);
+        sb.append("\n");
+        return sb.toString();
+    }
+
+    private void assertTimeInfo() {
         try {
             assert false;
         } catch (AssertionError e) {
-            System.out.println(CalendarCharacter.MONTHS_IN_ENGLISH_SHORT[this.month]
-            + "/" + this.date
-            + " | " + dayIndex
-            + " : " + CalendarCharacter.DAYS_IN_ENGLISH_LONG[dayIndex]);
+            System.out.println(toString());
         }
     }
 }

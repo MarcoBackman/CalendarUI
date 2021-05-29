@@ -20,12 +20,12 @@ public class CalendarGenerator {
 	 */
 
      //Forms YYYYMM when month is added to the key
-
 	public DateBlock startWeekday;
 	public DateBlock lastWeekday;
 	public DateBlock startWeekend;
 	public DateBlock lastWeekend;
     private boolean isFirstWeekend = false;
+    private Calendar instance = Calendar.getInstance();
     private final int MAX_BLOCK_COUNT = 42;
 
     //dateSet contains year, month but not date
@@ -48,7 +48,7 @@ public class CalendarGenerator {
 
         for (int blockIndex = 0; blockIndex < MAX_BLOCK_COUNT; blockIndex++) {
             //Identify empty or active block.
-            if(blockIndex <= startDayIndex || actualDate > maxDates) {
+            if(blockIndex < startDayIndex || actualDate > maxDates) {
                 newCalendarTable.addEmptyBlock();
                 continue;
             }
@@ -76,7 +76,6 @@ public class CalendarGenerator {
     private DateBlock setFirstDateBlock(DateBlock dateBlock, int dayIndex) {
         dateBlock.setFirstDate();
         if (isWeekend(dayIndex)) {
-            System.out.println("Triggered");
             dateBlock.setWeekend();
             if (!isFirstWeekend) {
                 dateBlock.setFirstWeekend();
@@ -94,7 +93,6 @@ public class CalendarGenerator {
     private DateBlock setLastDateBlock(DateBlock dateBlock, int dayIndex) {
         dateBlock.setLastDate();
         if (isWeekend(dayIndex)) {
-            System.out.println("Triggered");
             dateBlock.setWeekend();
             lastWeekend = dateBlock;
         } else {
@@ -107,7 +105,6 @@ public class CalendarGenerator {
     //Normal Date
     private DateBlock setOrdinaryDateBlock(DateBlock dateBlock, int dayIndex) {
         if (isWeekend(dayIndex)) {
-            System.out.println("Triggered");
             dateBlock.setWeekend();
             if (!isFirstWeekend) {
                 dateBlock.setFirstWeekend();
@@ -129,18 +126,16 @@ public class CalendarGenerator {
 
     //returns a day index value of the 1st date - @see DAY INDEX VALUE.
 	public int getStartDay (DateSet dateSet) {
-        Calendar instance = Calendar.getInstance();
         instance.set(dateSet.getYear(),
-                     dateSet.getMonthIndex(), 1);
+                     dateSet.getMonth(), 1);
         int startDayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
 		return startDayIndex;
 	}
 
 	//amount of dates in specified month and year - e.g. Feburary will return 28
 	public int getMaxDates(DateSet dateSet) {
-		Calendar instance = Calendar.getInstance();
 		instance.set(dateSet.getYear(),
-                             dateSet.getMonthIndex(), 1);
+                             dateSet.getMonth(), 1);
         int maximumDate = instance.getActualMaximum(Calendar.DAY_OF_MONTH);
 		return maximumDate;
 	}
@@ -149,8 +144,11 @@ public class CalendarGenerator {
         try {
             assert false;
         } catch (AssertionError e) {
+            Date date = instance.getTime();
             System.out.println("Max Date is :" + maxDates
             + " / Start Day Index is" + startDayIndex);
+            System.out.println("Calendar Generator date string value: " +
+               date.toString());
         }
     }
 }
