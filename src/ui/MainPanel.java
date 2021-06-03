@@ -16,6 +16,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -32,7 +34,8 @@ import classfile.data.SharedDateValue;
 import classfile.data.SharedUserValue;
 
 class MainPanel extends JPanel implements ActionListener,
-                                          MouseListener {
+                                          MouseListener,
+                                          MouseWheelListener {
 
     final int MAX_BLOCK_COUNT = 42;
 
@@ -50,34 +53,49 @@ class MainPanel extends JPanel implements ActionListener,
             addStanderButton,
             editTableButton,
             dateSelectButton,
-            createScheduleButton;
+            createScheduleButton,
+            nextMonth,
+            previousMonth;
 
-    CalendarGenerator calendarGenerator;
+    CalendarGenerator calendarGenerator = new CalendarGenerator();
     CalendarList calendarList;
 
     //Do not change the order of the methods.
     MainPanel() {
+        //load serialized calendar list data
+        loadData();
+        //Panel setup
         setCalendarPanel();
         setPanels();
-        setButtons();
-        activateListener();
+        //Button setup
+        setNorthMarginButtons();
+        setSouthMarginButtons();
+        //Listener activation
+        activateCalendarListener();
+        activateNorthMarginListener();
+        activateSouthMarginListener();
+        //Graphics
         validate();
         repaint();
     }
 
-    //Default date set to PC time
-    private void setCalendarPanel() {
-        calendarPanel = new JPanel();
-        calendarPanel.setLayout(new GridLayout(6, 7, 3, 3));
-        calendarPanel.setBackground(ColorCode.DARK_GRAY_BACKGROUND);
-        calendarPanel.setOpaque(true);
-        addDatePanel();
+    //@TODO - add data search function
+    private void loadData() {
+        //find existing data - not implemented yet
+
+        //or generate new List
+        calendarList = new CalendarList();
     }
 
-    private void addDatePanel() {
-        calendarGenerator = new CalendarGenerator();
-        calendarList = new CalendarList();
+    //Default date set to PC time - consider refactoring
+    private void setCalendarPanel() {
+        calendarPanel = new JPanel();
+        calendarPanel.setLayout(new GridLayout(1, 1, 10, 10));
+        addSingleCalendarPanels();
+    }
 
+    //consider refactoring
+    private void addSingleCalendarPanels() {
         //de-referencing values
         int year = SharedDateValue.getTodayYear();
         int month = SharedDateValue.getTodayMonth();
@@ -92,12 +110,16 @@ class MainPanel extends JPanel implements ActionListener,
 
         //Add that calendar to the calendar set
         calendarList.addNewMonth(newSingleCalendar, today);
+        calendarPanel.add(newSingleCalendar);
 
-        for (int i = 0; i < MAX_BLOCK_COUNT; i++) {
-            calendarPanel.add(newSingleCalendar.getDateBlockByIndex(i));
-        }
-
+        //will be used lately - for exportation
         SharedUserValue.calendarList = calendarList;
+    }
+
+    private void getNextPanels(DateSet targetDateSet) {
+        DateSet currentDateSet = SharedDateValue.getCurrentDateSet();
+        //get calendar from the list
+        //calendarList.hasCalendar
     }
 
     private void setPanels () {
@@ -114,17 +136,18 @@ class MainPanel extends JPanel implements ActionListener,
         centerPanel.addMouseListener(this);
         centerPanel.setFocusable(true);
 
-        northMargin = new JPanel();
         northMargin.setLayout(new GridLayout(1, 5));
+
+        southMargin.setLayout(new GridLayout(1, 16));
 
         this.add(northMargin, BorderLayout.NORTH);
         //this.add(eastMargin, BorderLayout.EAST); - Not implemented yet
-        //this.add(southMargin, BorderLayout.SOUTH);  - Not implemented yet
+        this.add(southMargin, BorderLayout.SOUTH);
         //this.add(westMargin, BorderLayout.WEST);  - Not implemented yet
         this.add(centerPanel, BorderLayout.CENTER);
     }
 
-    private void setButtons() {
+    private void setNorthMarginButtons() {
         addStanderButton = new JButton("Add stander");
         addStanderButton.setFocusable(false);
 
@@ -140,7 +163,6 @@ class MainPanel extends JPanel implements ActionListener,
 
         createScheduleButton = new JButton("Create Schedule");
         createScheduleButton.setFocusable(false);
-        createScheduleButton.addActionListener(this);
 
         addStanderButton.setBackground(ColorCode.BUTTON_BACKGROUND);
         editTableButton.setBackground(ColorCode.BUTTON_BACKGROUND);
@@ -152,15 +174,51 @@ class MainPanel extends JPanel implements ActionListener,
         northMargin.add(dateSelectButton);
 		northMargin.add(spaceGap);
         northMargin.add(createScheduleButton);
-
     }
 
-    // TODO: refactor these
-    public void activateListener() {
+    private void setSouthMarginButtons() {
+        previousMonth = new JButton("<");
+        previousMonth.setFocusable(false);
+        previousMonth.setBackground(ColorCode.BUTTON_BACKGROUND);
+
+        nextMonth = new JButton(">");
+        nextMonth.setFocusable(false);
+        nextMonth.setBackground(ColorCode.BUTTON_BACKGROUND);
+
+        southMargin.add(new JLabel());
+        southMargin.add(new JLabel());
+        southMargin.add(previousMonth);
+        for (int i = 0; i < 10; i++) {
+            southMargin.add(new JLabel());
+        }
+        southMargin.add(nextMonth);
+        southMargin.add(new JLabel());
+        southMargin.add(new JLabel());
+    }
+
+    public void activateCalendarListener() {
+        calendarPanel.addMouseListener(this);
+        calendarPanel.addMouseWheelListener(this);
+    }
+
+    public void activateNorthMarginListener() {
 		addStanderButton.addActionListener(this);
         editTableButton.addActionListener(this);
         dateSelectButton.addActionListener(this);
     	createScheduleButton.addActionListener(this);
+    }
+
+    public void activateSouthMarginListener() {
+        previousMonth.addActionListener(this);
+        nextMonth.addActionListener(this);
+    }
+
+    private void switchToNextMonth() {
+
+    }
+
+    private void switchToPreviousMonth() {
+
     }
 
     @Override
@@ -170,7 +228,8 @@ class MainPanel extends JPanel implements ActionListener,
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        //button color change
+        Object obj = e.getSource();
     }
 
     @Override
@@ -189,6 +248,19 @@ class MainPanel extends JPanel implements ActionListener,
     }
 
     @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        //Show next month when negative sign
+        if (e.getUnitsToScroll() < 0) {
+            System.out.println("Show");
+        }
+        //Show previous month when positive sign
+        else if (e.getUnitsToScroll() > 0) {
+            System.out.println("Show");
+        }
+
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
 		//Button actions
@@ -200,6 +272,10 @@ class MainPanel extends JPanel implements ActionListener,
 			//TODO bring up date select window.
 		} else if (obj.equals(createScheduleButton)) {
             //TODO bring up create schedule window.
-		}
+		} else if (obj.equals(previousMonth)) {
+            //Show previous month
+        } else if (obj.equals(nextMonth)) {
+            //Show next month
+        }
     }
 }
