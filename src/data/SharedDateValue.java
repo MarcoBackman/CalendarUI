@@ -6,14 +6,14 @@ import classfile.calendar.DateSet;
 
 public class SharedDateValue {
     //"current" prefixed variable: locates user's desired date (visual track)
-    public static int currentYear;
-    public static int currentMonth;
-    public static int currentDate;
+    private static int currentYear;
+    private static int currentMonth;
+    private static int currentDate;
     //"today" prefixed variable:
     //   values that only changes by real time on user's window time setting
-    public static int todayYear;
-    public static int todayMonth;
-    public static int todayDate;
+    private static int todayYear;
+    private static int todayMonth;
+    private static int todayDate;
 
     public static void setDefaultDate() {
         Calendar instance = Calendar.getInstance();
@@ -23,9 +23,9 @@ public class SharedDateValue {
 
         //Values won't change once values are assigned.
         //On default, today date must be same as current date.
-        SharedDateValue.todayYear = SharedDateValue.currentYear;
-        SharedDateValue.todayMonth = SharedDateValue.currentMonth;
-        SharedDateValue.todayDate = SharedDateValue.currentDate;
+        SharedDateValue.todayYear = instance.get(Calendar.YEAR);
+        SharedDateValue.todayMonth = instance.get(Calendar.MONTH);
+        SharedDateValue.todayDate = instance.get(Calendar.DAY_OF_MONTH);
     }
 
     public static int getTodayYear() {
@@ -58,6 +58,32 @@ public class SharedDateValue {
         SharedDateValue.currentYear = targetDateSet.getYear();
         SharedDateValue.currentMonth = targetDateSet.getMonth();
         SharedDateValue.currentDate = targetDateSet.getDate();
+    }
+
+    public static void shiftNextYear() {
+        ++SharedDateValue.currentYear;
+    }
+
+    public static void shiftPreviousYear() {
+        --SharedDateValue.currentYear;
+    }
+
+    public static void shiftNextMonth() {
+        if (currentMonth == 11) { //if December
+            ++SharedDateValue.currentYear;
+            SharedDateValue.currentMonth = 0; //January
+        } else {
+            ++SharedDateValue.currentMonth;
+        }
+    }
+
+    public static void shiftPreviousMonth() {
+        if (currentMonth == 0) { //if January
+            --SharedDateValue.currentYear;
+            SharedDateValue.currentMonth = 11; //December
+        } else {
+            --SharedDateValue.currentMonth;
+        }
     }
 
     public void assertValue(DateSet dateSet) {
