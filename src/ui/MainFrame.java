@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
 
 	private void setupFrame() {
 		setIconImage(IconSets.getMainIconImage());
-        setResizable(false);
+        setResizable(true);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         CommonUIData.setScreenLocation(this, FRAME_WIDTH, FRAME_HEIGHT);
         setLocation(CommonUIData.SCREEN_CENTER_X,
