@@ -48,7 +48,7 @@ public class TestDateAssert {
     }
 
     private void todyYearMatch(int expectedYear) {
-        int year = SharedDateValue.todayYear;
+        int year = SharedDateValue.getTodayYear();
         try {
             assert year == expectedYear;
         } catch (AssertionError e) {
@@ -58,7 +58,7 @@ public class TestDateAssert {
     }
 
     private void todyMonthMatch(int expectedMonth) {
-        int month = SharedDateValue.todayMonth;
+        int month = SharedDateValue.getTodayMonth();
         try {
             assert month == expectedMonth;
         }  catch (AssertionError e) {
@@ -68,7 +68,7 @@ public class TestDateAssert {
     }
 
     private void todyDateMatch(int expectedDate) {
-        int date = SharedDateValue.todayDate;
+        int date = SharedDateValue.getTodayDate();
         try {
             assert date == expectedDate;
         } catch (AssertionError e) {
