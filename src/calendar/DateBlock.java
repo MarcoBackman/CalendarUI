@@ -79,11 +79,11 @@ public class DateBlock extends JPanel implements MouseListener {
     }
 
     public boolean isToday() {
-        if (year != SharedDateValue.todayYear)
+        if (year != SharedDateValue.getTodayYear())
             return false;
-        if (month != SharedDateValue.todayMonth)
+        if (month != SharedDateValue.getTodayMonth())
             return false;
-        if (date != SharedDateValue.todayDate)
+        if (date != SharedDateValue.getTodayDate())
             return false;
         return true;
     }
