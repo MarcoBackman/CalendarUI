@@ -1,6 +1,7 @@
 package classfile.calendar;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
@@ -11,7 +12,7 @@ import java.io.Serializable;
 
 import classfile.ui.ColorCode;
 
-public class SingleCalendar implements Serializable {
+public class SingleCalendar extends JPanel implements Serializable {
 
     final static int MAX_BLOCK_COUNT = 42;
 
@@ -20,11 +21,15 @@ public class SingleCalendar implements Serializable {
     int counterIndex = 0; //Counter that indicates block index - 0 ~ 41;
     int startingIndex = 0; //Value that indicates where the first date starts
     boolean startingIndexAssigned = false;
+    SingleCalendar nextCalendar, previousCalendar;
 
     static Hashtable<Integer, JPanel> dateBlockCollection
       = new Hashtable<Integer, JPanel> (MAX_BLOCK_COUNT);
 
     SingleCalendar(DateSet dateSet) {
+        setLayout(new GridLayout(6, 7, 3, 3));
+        setBackground(ColorCode.DARK_GRAY_BACKGROUND);
+        setOpaque(true);
         this.year = dateSet.getYear();
         this.month = dateSet.getMonth();
     }
@@ -44,6 +49,7 @@ public class SingleCalendar implements Serializable {
                  }
             }
         });
+        add(dateBlockCollection.get(counterIndex));
         counterIndex++;
     }
 
@@ -54,6 +60,7 @@ public class SingleCalendar implements Serializable {
             startingIndexAssigned = true;
         }
         dateBlockCollection.put(counterIndex, (JPanel)dateBlock);
+        add((JPanel)dateBlock);
         counterIndex++;
     }
 
@@ -72,11 +79,28 @@ public class SingleCalendar implements Serializable {
         return (JPanel)dateBlockCollection.get(dateIndex);
     }
 
+    //add((JPanel)dateBlock) method required
     public DateBlock replaceDateBlock(Integer newDate, DateBlock dateBlock) {
         //TODO: add type hanlder - refrain from using casting
         Integer dateIndex = (Integer)((startingIndex + newDate) - 1);
         DateBlock oldBlock = (DateBlock)dateBlockCollection.get(dateIndex);
         dateBlockCollection.put(dateIndex, (JPanel)dateBlock);
         return oldBlock;
+    }
+
+    public boolean hasNextCalendarLinked() {
+        return this.nextCalendar != null;
+    }
+
+    public boolean hasPreviousCalendarLinked() {
+        return this.previousCalendar != null;
+    }
+
+    public void setNextCalendar(SingleCalendar nextCalendar) {
+        this.nextCalendar = nextCalendar;
+    }
+
+    public void setPreviousCalendar(SingleCalendar previousCalendar) {
+        this.previousCalendar = previousCalendar;
     }
 }
