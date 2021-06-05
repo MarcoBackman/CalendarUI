@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.event.MenuKeyEvent;
 import javax.swing.event.MenuKeyListener;
 
+@SuppressWarnings("serial")
 class MenuBar extends JMenuBar implements ActionListener,
                                           MenuKeyListener {
 
