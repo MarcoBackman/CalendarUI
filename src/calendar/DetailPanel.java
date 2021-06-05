@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class DetailPanel extends JPanel
     implements ActionListener {
 

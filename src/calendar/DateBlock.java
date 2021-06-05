@@ -13,6 +13,7 @@ import classfile.ui.ColorCode;
 import classfile.data.SharedDateValue;
 
 // Do not get confused with DateSet.java
+@SuppressWarnings("serial")
 public class DateBlock extends JPanel implements MouseListener {
 
     private int year;
@@ -81,7 +82,7 @@ public class DateBlock extends JPanel implements MouseListener {
     public boolean isToday() {
         if (year != SharedDateValue.getTodayYear())
             return false;
-        if (month != SharedDateValue.getTodayMonth())
+        if (month != SharedDateValue.getTodayMonth()    )
             return false;
         if (date != SharedDateValue.getTodayDate())
             return false;
