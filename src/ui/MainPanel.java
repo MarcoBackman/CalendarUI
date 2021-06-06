@@ -33,6 +33,7 @@ import classfile.calendar.SingleCalendar;
 import classfile.data.SharedDateValue;
 import classfile.data.SharedUserValue;
 
+@SuppressWarnings("serial")
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener,
                                           MouseWheelListener {
@@ -57,6 +58,8 @@ class MainPanel extends JPanel implements ActionListener,
             nextMonth,
             previousMonth;
 
+    JLabel monthYearLabel = new JLabel("");
+
     CalendarGenerator calendarGenerator = new CalendarGenerator();
     CalendarList calendarList;
 
@@ -75,8 +78,8 @@ class MainPanel extends JPanel implements ActionListener,
         activateNorthMarginListener();
         activateSouthMarginListener();
         //Graphics
-        validate();
-        repaint();
+        setLabel();
+        refreshGUI();
     }
 
     //@TODO - add data search function
@@ -104,22 +107,34 @@ class MainPanel extends JPanel implements ActionListener,
         //check if this data is de-referenced from static values
         DateSet today = new DateSet(year, month, date);
 
-        //Create or locate single calendar
-        SingleCalendar newSingleCalendar
-         = calendarGenerator.createSingleCalendar(today);
-
         //Add that calendar to the calendar set
-        calendarList.addNewMonth(newSingleCalendar, today);
-        calendarPanel.add(newSingleCalendar);
+        SingleCalendar newCalendar = calendarList.addNewMonth(today);
+        calendarPanel.add(newCalendar);
 
         //will be used lately - for exportation
         SharedUserValue.calendarList = calendarList;
     }
 
-    private void getNextPanels(DateSet targetDateSet) {
+    private void getNextPanels() {
+        SharedDateValue.shiftNextMonth();
         DateSet currentDateSet = SharedDateValue.getCurrentDateSet();
         //get calendar from the list
-        //calendarList.hasCalendar
+        calendarPanel.removeAll();
+        SingleCalendar calendar = calendarList.addNewMonth(currentDateSet);
+        calendarPanel.add(calendar);
+        setLabel();
+        refreshGUI();
+    }
+
+    private void getPreviousPanels() {
+        SharedDateValue.shiftPreviousMonth();
+        DateSet currentDateSet = SharedDateValue.getCurrentDateSet();
+        //get calendar from the list
+        calendarPanel.removeAll();
+        SingleCalendar calendar = calendarList.addNewMonth(currentDateSet);
+        calendarPanel.add(calendar);
+        setLabel();
+        refreshGUI();
     }
 
     private void setPanels () {
@@ -186,14 +201,28 @@ class MainPanel extends JPanel implements ActionListener,
         nextMonth.setBackground(ColorCode.BUTTON_BACKGROUND);
 
         southMargin.add(new JLabel());
-        southMargin.add(new JLabel());
-        southMargin.add(previousMonth);
+        southMargin.add(monthYearLabel);
         for (int i = 0; i < 10; i++) {
             southMargin.add(new JLabel());
         }
+        southMargin.add(previousMonth);
+        southMargin.add(new JLabel());
         southMargin.add(nextMonth);
         southMargin.add(new JLabel());
         southMargin.add(new JLabel());
+    }
+
+    private void setLabel() {
+        DateSet dateSet = SharedDateValue.getCurrentDateSet();
+        int year = dateSet.getYear();
+        int month = dateSet.getMonth();
+        String labelText = year + "/" + (month + 1);
+        monthYearLabel.setText(labelText);
+    }
+
+    private void refreshGUI() {
+        validate();
+        repaint();
     }
 
     public void activateCalendarListener() {
@@ -211,14 +240,6 @@ class MainPanel extends JPanel implements ActionListener,
     public void activateSouthMarginListener() {
         previousMonth.addActionListener(this);
         nextMonth.addActionListener(this);
-    }
-
-    private void switchToNextMonth() {
-
-    }
-
-    private void switchToPreviousMonth() {
-
     }
 
     @Override
@@ -251,11 +272,13 @@ class MainPanel extends JPanel implements ActionListener,
     public void mouseWheelMoved(MouseWheelEvent e) {
         //Show next month when negative sign
         if (e.getUnitsToScroll() < 0) {
-            System.out.println("Show");
+            getNextPanels();
         }
+
+
         //Show previous month when positive sign
         else if (e.getUnitsToScroll() > 0) {
-            System.out.println("Show");
+            getPreviousPanels();
         }
 
     }
@@ -272,10 +295,10 @@ class MainPanel extends JPanel implements ActionListener,
 			//TODO bring up date select window.
 		} else if (obj.equals(createScheduleButton)) {
             //TODO bring up create schedule window.
-		} else if (obj.equals(previousMonth)) {
-            //Show previous month
-        } else if (obj.equals(nextMonth)) {
-            //Show next month
+		} else if (obj.equals(nextMonth)) {
+            getNextPanels();
+        } else if (obj.equals(previousMonth)) {
+            getPreviousPanels();
         }
     }
 }

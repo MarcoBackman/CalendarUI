@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 import classfile.ui.ColorCode;
 
+@SuppressWarnings("serial")
 public class SingleCalendar extends JPanel implements Serializable {
 
     final static int MAX_BLOCK_COUNT = 42;
@@ -71,12 +72,12 @@ public class SingleCalendar extends JPanel implements Serializable {
      */
 
     public JPanel getDateBlockByIndex(Integer index) {
-        return (JPanel)dateBlockCollection.get(index);
+        return dateBlockCollection.get(index);
     }
 
     public JPanel getDateBlockByDate(Integer date) {
         Integer dateIndex = (Integer)((startingIndex + date) - 1);
-        return (JPanel)dateBlockCollection.get(dateIndex);
+        return dateBlockCollection.get(dateIndex);
     }
 
     //add((JPanel)dateBlock) method required

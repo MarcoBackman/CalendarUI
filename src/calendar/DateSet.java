@@ -22,7 +22,7 @@ import java.lang.StringBuilder;
  * Do not get confused with DateBlock.java
  */
 
-public class DateSet {
+public class DateSet implements Cloneable {
     private int year;
     private int month;
     private int date;
@@ -93,9 +93,11 @@ public class DateSet {
         sb.append(this.month);
         sb.append(" Month: ");
         sb.append(getMonth());
+        sb.append(" Date: ");
+        sb.append(getDate());
         sb.append(" : ");
         sb.append(CalendarCharacter.MONTHS_IN_ENGLISH_SHORT[getMonth()]);
-        sb.append("\nDate: ");
+        sb.append(". Date: ");
         sb.append(this.date);
         sb.append(" Day: ");
         sb.append(this.day);
