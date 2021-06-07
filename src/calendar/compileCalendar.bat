@@ -1,7 +1,7 @@
 @ECHO off
 
 ::compiles calendar files
-javac -cp ..\..\bin -d ..\..\bin *.java
+javac -cp ..\..\class -d ..\..\class *.java
 echo "calendar files compilation done."
 
 PAUSE

@@ -1,6 +1,6 @@
 @ECHO on
 
-cd bin\classfile\
+cd class\classfile\
 java -classpath .. classfile.Main
 
 PAUSE
