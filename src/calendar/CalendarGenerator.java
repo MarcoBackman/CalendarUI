@@ -34,7 +34,6 @@ public class CalendarGenerator {
         int year = dateSet.getYear();
         int month = dateSet.getMonth();
         int maxDates = getMaxDates(dateSet);
-        System.out.println(maxDates);
         int startDayIndex = getStartDay(dateSet);
         int dayIndex;
 

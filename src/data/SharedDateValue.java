@@ -75,6 +75,7 @@ public class SharedDateValue {
         } else {
             ++SharedDateValue.currentMonth;
         }
+        SharedDateValue.currentDate = 1;
     }
 
     public static void shiftPreviousMonth() {
@@ -84,6 +85,7 @@ public class SharedDateValue {
         } else {
             --SharedDateValue.currentMonth;
         }
+        SharedDateValue.currentDate = 1;
     }
 
     public void assertValue(DateSet dateSet) {

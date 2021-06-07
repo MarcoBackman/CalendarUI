@@ -34,6 +34,8 @@ public class DateSet implements Cloneable {
         this.month = month;
         this.date = date;
         this.day = setDay();
+        //@Debugging
+        //assertTimeInfo();
     }
 
     public void setYear(int year) {
@@ -57,10 +59,6 @@ public class DateSet implements Cloneable {
         Calendar instance = Calendar.getInstance();
         instance.set(this.year, this.month, this.date);
         this.dayIndex = instance.get(Calendar.DAY_OF_WEEK) - 1;
-
-        //@Debugging
-        assertTimeInfo();
-
         return CalendarCharacter.DAYS_IN_ENGLISH_LETTER[dayIndex];
     }
 
@@ -86,7 +84,7 @@ public class DateSet implements Cloneable {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("-DateSet Info- \n");
+        sb.append("-DateSet created- \n");
         sb.append("Year: ");
         sb.append(this.year);
         sb.append(" Month index: ");
@@ -101,7 +99,7 @@ public class DateSet implements Cloneable {
         sb.append(this.date);
         sb.append(" Day: ");
         sb.append(this.day);
-        sb.append("\n");
+        sb.append("\n ------------------------------------- \n");
         return sb.toString();
     }
 
