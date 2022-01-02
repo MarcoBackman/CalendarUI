@@ -1,6 +1,5 @@
-# DutyAssigner
-> Set duty(watch) standers in a smart way to make simple
->  and fair duty calendar schedule to everyone.
+# Calendar GUI
+> Calendar interface for users and code examples.
 
 > A calendar set is based on Georgian group calendar
 
@@ -14,19 +13,7 @@
 ## Default encoding type
 
 > UTF-8
-
-## Editors on Use
-
-- Atom: for general java files
-- NotePad++: for batch files and other language files
-
-## External libraries (3rd Party API).
-
->
-
-## FOLDER
-
-
+> 
 ## Code Notice.
 
 - **Naming clarification (Date and Day)**</p>
