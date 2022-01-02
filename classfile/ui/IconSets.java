@@ -9,7 +9,7 @@ public class IconSets {
 	private final static String FRAME_LOGO = "../img/NAVYLOGO_02.png";
 	private final static String LABEL_LOGO = "../img/LabelLogo_mini.png";
 
-    //TODO Refactor - file not found detection needed.
+    //@TODO Refactor - file not found detection needed.
 	static ImageIcon mainIcon = new ImageIcon(IconSets.FRAME_LOGO);
 	static ImageIcon labelIcon = new ImageIcon(IconSets.LABEL_LOGO);
 

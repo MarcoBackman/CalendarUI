@@ -20,7 +20,6 @@ import classfile.calendar.SingleCalendar;
 import classfile.data.SharedDateValue;
 import classfile.data.SharedUserValue;
 
-@SuppressWarnings("serial")
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener,
                                           MouseWheelListener {
@@ -37,7 +36,7 @@ class MainPanel extends JPanel implements ActionListener,
     JPanel upperSouthPanel, lowerSouthPanel;
 
     //Buttons
-    JButton searchButton, //TODO implement later
+    JButton searchButton,
             addStanderButton,
             editTableButton,
             dateSelectButton,
@@ -275,13 +274,13 @@ class MainPanel extends JPanel implements ActionListener,
         Object obj = e.getSource();
 		//Button actions
 		if (obj.equals(addStanderButton)) {
-            //TODO bring up stander window.
+            //@TODO bring up stander window.
 		} else if (obj.equals(editTableButton)) {
-			//TODO bring up table edit window.
+			//@TODO bring up table edit window.
 		} else if (obj.equals(dateSelectButton)) {
-			//TODO bring up date select window.
+			//@TODO bring up date select window.
 		} else if (obj.equals(createScheduleButton)) {
-            //TODO bring up create schedule window.
+            //@TODO bring up create schedule window.
 		} else if (obj.equals(nextMonth)) {
             getNextPanels();
         } else if (obj.equals(previousMonth)) {
