@@ -4,21 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CalendarGenerator {
-
-    /*
-     *  - DAY INDEX VALUE -
-	 *  DAY_OF_WEEK = 0 : Sunday
-	 *  DAY_OF_WEEK = 1 : Monday
-	 *  DAY_OF_WEEK = 2 : Tuesday
-	 *  DAY_OF_WEEK = 3 : Wednesday
-	 *  DAY_OF_WEEK = 4 : Thursday
-	 *  DAY_OF_WEEK = 5 : Friday
-	 *  DAY_OF_WEEK = 6 : Saturday
-     *
-     *  - Month INDEX VALUE -
-     *  January : 0 ~ December : 11
-	 */
-
      //Forms YYYYMM when month is added to the key
 	public DateBlock startWeekday;
 	public DateBlock lastWeekday;
