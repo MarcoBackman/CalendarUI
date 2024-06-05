@@ -1,47 +1,35 @@
-package classfile.ui;
+package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
-import classfile.calendar.CalendarGenerator;
-import classfile.calendar.CalendarList;
-import classfile.calendar.DateSet;
-import classfile.calendar.SingleCalendar;
+import calendar.CalendarGenerator;
+import calendar.CalendarList;
+import calendar.DateSet;
+import calendar.SingleCalendar;
 
-import classfile.data.SharedDateValue;
-import classfile.data.SharedUserValue;
+import constant.ColorCode;
+import constant.IconSets;
+import data.SharedDateValue;
+import data.SharedUserValue;
 
-@SuppressWarnings("serial")
 class MainPanel extends JPanel implements ActionListener,
                                           MouseListener,
                                           MouseWheelListener {
-
-    final int MAX_BLOCK_COUNT = 42;
+    private final int INNER_BOTTOM_NAV_WIDTH = 300;
+    private final int INNER_BOTTOM_NAV_HEIGHT = 40;
+    private final Font MONTH_YEAR_DISPLAY_FONT = new Font(Font.DIALOG_INPUT, Font.BOLD, 20);
 
     //External Panel
-    JPanel centerPanel, northMargin, southMargin, westMargin, eastMargin;
+    JPanel centerPanel, topNavBar, bottomNavBar, westMargin, eastMargin;
 
     //Internal Panel(Sub panel of @centerPanel)
     JPanel calendarPanel, buttonPanel;
@@ -72,7 +60,7 @@ class MainPanel extends JPanel implements ActionListener,
         setPanels();
         //Button setup
         setNorthMarginButtons();
-        setSouthMarginButtons();
+        setBottomNavBarButtons();
         //Listener activation
         activateCalendarListener();
         activateNorthMarginListener();
@@ -141,9 +129,9 @@ class MainPanel extends JPanel implements ActionListener,
         this.setLayout(new BorderLayout());
 
         centerPanel = new JPanel();
-        northMargin = new JPanel();
+        topNavBar = new JPanel();
         eastMargin = new JPanel();
-        southMargin = new JPanel();
+        bottomNavBar = new JPanel();
         westMargin = new JPanel();
 
         centerPanel.setLayout(new GridLayout(1, 1));
@@ -151,13 +139,13 @@ class MainPanel extends JPanel implements ActionListener,
         centerPanel.addMouseListener(this);
         centerPanel.setFocusable(true);
 
-        northMargin.setLayout(new GridLayout(1, 5));
+        topNavBar.setLayout(new GridLayout(1, 5));
 
-        southMargin.setLayout(new GridLayout(1, 16));
+        bottomNavBar.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        this.add(northMargin, BorderLayout.NORTH);
+        this.add(topNavBar, BorderLayout.NORTH);
         //this.add(eastMargin, BorderLayout.EAST); - Not implemented yet
-        this.add(southMargin, BorderLayout.SOUTH);
+        this.add(bottomNavBar, BorderLayout.SOUTH);
         //this.add(westMargin, BorderLayout.WEST);  - Not implemented yet
         this.add(centerPanel, BorderLayout.CENTER);
     }
@@ -184,14 +172,23 @@ class MainPanel extends JPanel implements ActionListener,
         dateSelectButton.setBackground(ColorCode.BUTTON_BACKGROUND);
         createScheduleButton.setBackground(ColorCode.BUTTON_BACKGROUND);
 
-        northMargin.add(addStanderButton);
-        northMargin.add(editTableButton);
-        northMargin.add(dateSelectButton);
-		northMargin.add(spaceGap);
-        northMargin.add(createScheduleButton);
+        topNavBar.add(addStanderButton);
+        topNavBar.add(editTableButton);
+        topNavBar.add(dateSelectButton);
+		topNavBar.add(spaceGap);
+        topNavBar.add(createScheduleButton);
     }
 
-    private void setSouthMarginButtons() {
+    private JPanel initializeBottomLeftNavBarComponents() {
+        FlowLayout buttonLayout = new FlowLayout(FlowLayout.CENTER);
+        JPanel monthDisplayPanel = new JPanel();
+        monthDisplayPanel.setPreferredSize(new Dimension(INNER_BOTTOM_NAV_WIDTH, INNER_BOTTOM_NAV_HEIGHT));
+        monthDisplayPanel.setLayout(buttonLayout);
+        monthDisplayPanel.add(monthYearLabel);
+        return monthDisplayPanel;
+    }
+
+    private JPanel initializeBottomRightNavBarComponents() {
         previousMonth = new JButton("<");
         previousMonth.setFocusable(false);
         previousMonth.setBackground(ColorCode.BUTTON_BACKGROUND);
@@ -200,16 +197,32 @@ class MainPanel extends JPanel implements ActionListener,
         nextMonth.setFocusable(false);
         nextMonth.setBackground(ColorCode.BUTTON_BACKGROUND);
 
-        southMargin.add(new JLabel());
-        southMargin.add(monthYearLabel);
-        for (int i = 0; i < 10; i++) {
-            southMargin.add(new JLabel());
-        }
-        southMargin.add(previousMonth);
-        southMargin.add(new JLabel());
-        southMargin.add(nextMonth);
-        southMargin.add(new JLabel());
-        southMargin.add(new JLabel());
+        GridLayout buttonLayout = new GridLayout(1, 5);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setPreferredSize(new Dimension(INNER_BOTTOM_NAV_WIDTH, INNER_BOTTOM_NAV_HEIGHT));
+        buttonPanel.setLayout(buttonLayout);
+        buttonPanel.add(new JLabel());
+        buttonPanel.add(new JLabel());
+        buttonPanel.add(previousMonth);
+        buttonPanel.add(new JLabel());
+        buttonPanel.add(nextMonth);
+        return buttonPanel;
+    }
+
+    private void setBottomNavBarButtons() {
+        JLabel iconLabel = new JLabel();
+        iconLabel.setIcon(IconSets.getLabelIcon());
+
+        //Left
+        JPanel bottomLeftComponents = initializeBottomLeftNavBarComponents();
+        bottomNavBar.add(bottomLeftComponents);
+
+        //Center
+        bottomNavBar.add(iconLabel);
+
+        //Right
+        JPanel bottomRightComponents = initializeBottomRightNavBarComponents();
+        bottomNavBar.add(bottomRightComponents);
     }
 
     private void setLabel() {
@@ -218,6 +231,7 @@ class MainPanel extends JPanel implements ActionListener,
         int month = dateSet.getMonth();
         String labelText = year + "/" + (month + 1);
         monthYearLabel.setText(labelText);
+        monthYearLabel.setFont(MONTH_YEAR_DISPLAY_FONT);
     }
 
     private void refreshGUI() {

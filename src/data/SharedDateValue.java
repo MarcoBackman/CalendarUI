@@ -1,8 +1,8 @@
-package classfile.data;
+package data;
 
 import java.util.Calendar;
 
-import classfile.calendar.DateSet;
+import calendar.DateSet;
 
 public class SharedDateValue {
     //"current" prefixed variable: locates user's desired date (visual track)
@@ -15,7 +15,7 @@ public class SharedDateValue {
     private static int todayMonth;
     private static int todayDate;
 
-    public static void setDefaultDate() {
+    static {
         Calendar instance = Calendar.getInstance();
         SharedDateValue.currentYear = instance.get(Calendar.YEAR);
         SharedDateValue.currentMonth = instance.get(Calendar.MONTH);
@@ -41,17 +41,15 @@ public class SharedDateValue {
     }
 
     public static DateSet getTodayDateSet() {
-        DateSet todayDateSet = new DateSet(SharedDateValue.todayYear,
+        return new DateSet(SharedDateValue.todayYear,
                                            SharedDateValue.todayMonth,
                                            SharedDateValue.todayDate);
-        return todayDateSet;
     }
 
     public static DateSet getCurrentDateSet() {
-        DateSet currentDateSet = new DateSet(SharedDateValue.currentYear,
+        return new DateSet(SharedDateValue.currentYear,
                                              SharedDateValue.currentMonth,
                                              SharedDateValue.currentDate);
-        return currentDateSet;
     }
 
     public static void setCurrentDateSet(DateSet targetDateSet) {
@@ -86,15 +84,5 @@ public class SharedDateValue {
             --SharedDateValue.currentMonth;
         }
         SharedDateValue.currentDate = 1;
-    }
-
-    public void assertValue(DateSet dateSet) {
-        try {
-            assert dateSet.getYear() == currentYear;
-            assert dateSet.getMonth() == currentMonth;
-            assert dateSet.getDate() == currentDate;
-        }  catch (AssertionError e) {
-            System.out.println("SharedDateValue - Date info mismatch");
-        }
     }
 }

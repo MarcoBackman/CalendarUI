@@ -1,18 +1,16 @@
-package classfile.calendar;
+package calendar;
 
 import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 import java.io.Serializable;
 
-import classfile.ui.ColorCode;
+import constant.ColorCode;
 
-@SuppressWarnings("serial")
 public class SingleCalendar extends JPanel implements Serializable {
 
     final static int MAX_BLOCK_COUNT = 42;
@@ -38,16 +36,10 @@ public class SingleCalendar extends JPanel implements Serializable {
     //Add empty(inactive) block node to the table
     public void addEmptyBlock() {
         dateBlockCollection.put(counterIndex, new JPanel() {
-            Color bg = ColorCode.EMPTY_PANEL;
             @Override
             public void setBackground (Color bg) {
-                Color oldBg = getBackground();
                 super.setBackground(ColorCode.EMPTY_PANEL);
-                //need explaination why I'm doing this
-                if ((oldBg != null) ? !oldBg.equals(bg) :
-                 (bg != null) && !bg.equals(oldBg)) {
-                     repaint();
-                 }
+                repaint();
             }
         });
         add(dateBlockCollection.get(counterIndex));
@@ -60,32 +52,34 @@ public class SingleCalendar extends JPanel implements Serializable {
             startingIndex = counterIndex;
             startingIndexAssigned = true;
         }
-        dateBlockCollection.put(counterIndex, (JPanel)dateBlock);
+        dateBlockCollection.put(counterIndex, dateBlock);
         add((JPanel)dateBlock);
         counterIndex++;
     }
 
-    /*
-     * Do not get confused with two getters below
-     *   - getDateBlockByIndex includes empty block and active blocks
-     *   - getDateBlockByDate only refers to active blocks
+    /**
+     * includes empty block and active blocks
+     * @param index - block by index
+     * @return JPanel block
      */
-
     public JPanel getDateBlockByIndex(Integer index) {
         return dateBlockCollection.get(index);
     }
 
+    /**
+     * only refers to active blocks
+     * @param date - specific date block to retrieve
+     * @return JPanel block with date assigned
+     */
     public JPanel getDateBlockByDate(Integer date) {
-        Integer dateIndex = (Integer)((startingIndex + date) - 1);
+        Integer dateIndex = (startingIndex + date) - 1;
         return dateBlockCollection.get(dateIndex);
     }
 
-    //add((JPanel)dateBlock) method required
     public DateBlock replaceDateBlock(Integer newDate, DateBlock dateBlock) {
-        //TODO: add type hanlder - refrain from using casting
-        Integer dateIndex = (Integer)((startingIndex + newDate) - 1);
+        Integer dateIndex = (startingIndex + newDate) - 1;
         DateBlock oldBlock = (DateBlock)dateBlockCollection.get(dateIndex);
-        dateBlockCollection.put(dateIndex, (JPanel)dateBlock);
+        dateBlockCollection.put(dateIndex, dateBlock);
         return oldBlock;
     }
 

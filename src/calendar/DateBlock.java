@@ -1,4 +1,4 @@
-package classfile.calendar;
+package calendar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,9 +8,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import classfile.ui.ColorCode;
-
-import classfile.data.SharedDateValue;
+import constant.ColorCode;
+import data.SharedDateValue;
 
 // Do not get confused with DateSet.java
 @SuppressWarnings("serial")
@@ -48,7 +47,7 @@ public class DateBlock extends JPanel implements MouseListener {
         this.year = dateSet.getYear();
         this.month = dateSet.getMonth();
         this.date = dateSet.getDate();
-        this.day = dateSet.getDay();
+        this.day = dateSet.getDayChar();
         setDefaultLayout();
     }
 

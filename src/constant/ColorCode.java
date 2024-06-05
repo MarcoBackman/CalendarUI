@@ -1,4 +1,4 @@
-package classfile.ui;
+package constant;
 
 import java.awt.Color;
 

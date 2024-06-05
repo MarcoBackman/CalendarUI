@@ -1,6 +1,4 @@
-package classfile.ui;
-
-import java.util.ArrayList;
+package ui;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -15,10 +13,6 @@ public class CommonUIData {
 
 	public static boolean subWindowOpened;
 
-	/**
-	 * This method must be called at least once.
-	 * @see classfile.ui.MainFrame#frameSetting() - initial call
-	 */
 	public static void setScreenLocation(JFrame frame,
                                          int windowWidth,
                                          int windowHight) {
