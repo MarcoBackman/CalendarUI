@@ -1,12 +1,9 @@
 package constant;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public enum DayEnum {
     MONDAY('M', "MON", 1),
     TUESDAY('T', "TUE", 2),
@@ -33,6 +30,18 @@ public enum DayEnum {
         this.dayInSingleChar = "" + singleLetter;
         this.dayInShortStr = shortString;
         this.numberCode = numberCode;
+    }
+
+    public String getDayInSingleChar() {
+        return this.dayInSingleChar;
+    }
+
+    public String getDayInShortStr() {
+        return this.dayInShortStr;
+    }
+
+    public int getNumberCode() {
+        return this.numberCode;
     }
 
     public static String getSingleLetterByNumCode(int numberCode) {

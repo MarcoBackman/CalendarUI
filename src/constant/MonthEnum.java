@@ -1,12 +1,9 @@
 package constant;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public enum MonthEnum {
     JANUARY("JAN", 0),
     FEBRUARY("FEB", 1),
@@ -36,6 +33,14 @@ public enum MonthEnum {
     MonthEnum(String monthInShortStr, int monthCode) {
         this.monthInShortStr = monthInShortStr;
         this.monthCode = monthCode;
+    }
+
+    public int getMonthCode() {
+        return monthCode;
+    }
+
+    public String getMonthInShortStr() {
+        return monthInShortStr;
     }
 
     public static String getShortMonthStrByNumberCode(int numberCode) {
