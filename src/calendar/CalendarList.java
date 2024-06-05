@@ -2,12 +2,11 @@ package calendar;
 
 import java.lang.Exception;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class CalendarList {
     //Key multiplier makes key format to 'YYYYMM' that causes no unintended duplication
-    private final int KEY_MUILTIPLIER = 100;
+    private final int KEY_MULTIPLIER = 100;
     String calendarType;
     public static Hashtable <Integer, SingleCalendar> calendarTable
      = new Hashtable<Integer, SingleCalendar>();
@@ -70,10 +69,10 @@ public class CalendarList {
      private boolean hasNextCalendar(DateSet dateSet) {
          int year = dateSet.getYear();
          int month = dateSet.getMonth();
-         Integer key = year * KEY_MUILTIPLIER + month;
+         Integer key = year * KEY_MULTIPLIER + month;
          if (month == 11) { //if month is January
-             int tempYear = (key / KEY_MUILTIPLIER) + 1;
-             key = tempYear * KEY_MUILTIPLIER; //set to December
+             int tempYear = (key / KEY_MULTIPLIER) + 1;
+             key = tempYear * KEY_MULTIPLIER; //set to December
          } else {
             ++key;
          }
@@ -84,10 +83,10 @@ public class CalendarList {
      private boolean hasPreviousCalendar(DateSet dateSet) {
          int year = dateSet.getYear();
          int month = dateSet.getMonth();
-         Integer key = year * KEY_MUILTIPLIER + month;
+         Integer key = year * KEY_MULTIPLIER + month;
          if (month == 11) { //if month is January
-             int tempYear = (key / KEY_MUILTIPLIER) - 1;
-             key = tempYear * KEY_MUILTIPLIER; //set to December
+             int tempYear = (key / KEY_MULTIPLIER) - 1;
+             key = tempYear * KEY_MULTIPLIER; //set to December
          } else {
             --key;
          }
@@ -98,10 +97,10 @@ public class CalendarList {
      private SingleCalendar getNextCalendar(DateSet dateSet) {
          int year = dateSet.getYear();
          int month = dateSet.getMonth();
-         Integer key = year * KEY_MUILTIPLIER + month;
+         Integer key = year * KEY_MULTIPLIER + month;
          if (month == 0) { //if month is January
-             int tempYear = (key / KEY_MUILTIPLIER) - 1;
-             key = tempYear * KEY_MUILTIPLIER + 11; //set to December
+             int tempYear = (key / KEY_MULTIPLIER) - 1;
+             key = tempYear * KEY_MULTIPLIER + 11; //set to December
          } else {
             --key;
          }
@@ -112,10 +111,10 @@ public class CalendarList {
      private SingleCalendar getPreviousCalendar(DateSet dateSet) {
          int year = dateSet.getYear();
          int month = dateSet.getMonth();
-         Integer key = year * KEY_MUILTIPLIER + month;
+         Integer key = year * KEY_MULTIPLIER + month;
          if (month == 0) { //if month is January
-             int tempYear = (key / KEY_MUILTIPLIER) - 1;
-             key = tempYear * KEY_MUILTIPLIER + 11; //set to December
+             int tempYear = (key / KEY_MULTIPLIER) - 1;
+             key = tempYear * KEY_MULTIPLIER + 11; //set to December
          } else {
             --key;
          }
@@ -132,7 +131,7 @@ public class CalendarList {
      private int keyGenerator(DateSet dateSet) {
          int year = dateSet.getYear();
          int month = dateSet.getMonth();
-         int key = year * KEY_MUILTIPLIER + month;
+         int key = year * KEY_MULTIPLIER + month;
          return key;
      }
 
